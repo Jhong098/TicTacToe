@@ -15,6 +15,7 @@ namespace TicTacToe
 
         bool turn = true; // true is X's turn, false is O's turn
         int turnCount = 0;
+        static String player1, player2;
 
 
         public Form1()
@@ -22,7 +23,11 @@ namespace TicTacToe
             InitializeComponent();
         }
 
-
+        public static void setNames(String name1, String name2)
+        {
+            player1 = name1;
+            player2 = name2;
+        }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -98,12 +103,12 @@ namespace TicTacToe
 
                 if (turn)
                 {
-                    winner = "O";
+                    winner = player2;
                     o_win_count.Text = (Int32.Parse(o_win_count.Text) + 1).ToString();
                 }
                 else
                 {
-                    winner = "X";
+                    winner = player1;
                     x_win_count.Text = (Int32.Parse(x_win_count.Text) + 1).ToString();
                 }
                 MessageBox.Show(winner + " Wins. Congratulations!");
@@ -185,6 +190,16 @@ namespace TicTacToe
             x_win_count.Text = "0";
             o_win_count.Text = "0";
             draw_count.Text = "0";
+        }
+
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            TicTacToe f2 = new TicTacToe();
+            f2.ShowDialog();
+            label1.Text = player1;
+            label2.Text = player2;
         }
     }
 }
