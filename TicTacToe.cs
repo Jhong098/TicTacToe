@@ -97,16 +97,23 @@ namespace TicTacToe
                 String winner = "";
 
                 if (turn)
+                {
                     winner = "O";
+                    o_win_count.Text = (Int32.Parse(o_win_count.Text) + 1).ToString();
+                }
                 else
+                {
                     winner = "X";
-
+                    x_win_count.Text = (Int32.Parse(x_win_count.Text) + 1).ToString();
+                }
                 MessageBox.Show(winner + " Wins. Congratulations!");
             } else
             {
                if(turnCount == 9)
                 {
+                    draw_count.Text = (Int32.Parse(draw_count.Text) + 1).ToString();
                     MessageBox.Show("It is a draw.");
+
                 }
             }
         }
@@ -132,20 +139,52 @@ namespace TicTacToe
         {
             turn = true;
             turnCount = 0;
-            try
+            
+            foreach (Control c in Controls)
             {
-                foreach (Control c in Controls)
+                try
                 {
                     Button b = (Button)c;
                     b.Enabled = true;
                     b.Text = "";
                 }
+                catch { }
             }
-            catch
+
+
+
+        }
+
+        private void button_enter(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            if(b.Enabled)
             {
+                if(turn)
+                {
+                    b.Text = "X";
+                } else
+                {
+                    b.Text = "O";
+                }
             }
+           
+        }
 
+        private void button_leave(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+            if(b.Enabled)
+            {
+                b.Text = "";
+            }
+        }
 
+        private void resetWinCountsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            x_win_count.Text = "0";
+            o_win_count.Text = "0";
+            draw_count.Text = "0";
         }
     }
 }
